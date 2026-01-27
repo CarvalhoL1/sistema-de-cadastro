@@ -2,7 +2,6 @@ package db;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class ConnectionFactory {
     private static final String DATABASE_URL = "jdbc:sqlite:base.db"; 

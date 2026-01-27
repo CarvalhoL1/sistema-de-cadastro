@@ -1,6 +1,5 @@
 package db;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -13,7 +12,8 @@ public class Migrations {
             "id INTEGER PRIMARY KEY AUTOINCREMENT," +
             "nome TEXT NOT NULL," +
             "email TEXT UNIQUE NOT NULL," +
-            "senha_hash TEXT NOT NULL);";
+            "senha_hash TEXT NOT NULL," +
+            "frase TEXT);";
     statment.executeUpdate(sql);}
 
 }

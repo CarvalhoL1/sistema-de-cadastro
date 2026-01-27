@@ -1,11 +1,9 @@
 
 import java.util.Scanner;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import db.Migrations;
 import db.ConnectionFactory;
 import security.SenhaSegura;
@@ -42,6 +40,33 @@ public class App {
         } else {
             return false;
         }
+    }
+    }
+
+    public static void deletar_conta(String email) throws SQLException{
+        String deletSQL = "DELETE FROM usuarios WHERE email = ?";
+        try (Connection connection = ConnectionFactory.getConnection();
+         PreparedStatement pstmt = connection.prepareStatement(deletSQL)) {
+
+        pstmt.setString(1, email);
+        int linhasAfetadas = pstmt.executeUpdate();
+        if (linhasAfetadas > 0) {
+            System.out.println("Usuario deletado");
+        }
+        else{
+            System.out.println("Falha ao deletar usuario");
+        }
+    }
+}
+    public static void mudar_frase(String email, String frase) throws SQLException{
+        String insertSQL = "UPDATE usuarios SET frase = ? WHERE email = ?";
+        try (Connection connection = ConnectionFactory.getConnection();
+         PreparedStatement pstmt = connection.prepareStatement(insertSQL)) {
+
+        pstmt.setString(1, frase);
+        pstmt.setString(2, email);
+        pstmt.executeUpdate();
+
     }
     }
     public static void main(String[] args){
@@ -84,6 +109,28 @@ public class App {
 
                 if (ok) {
                     System.out.println("Login bem-sucedido!");
+                    System.out.println("O que deseja fazer?\n [0] Apagar conta\n [1] Adicionar/editar frase");
+                    int oquefazer = entrada.nextInt();
+                        switch (oquefazer) {
+                            case 0:
+                                System.out.println("tem certeza? s/n");
+                                char certeza = entrada.next().charAt(0);
+                                if (certeza == 's') {
+                                deletar_conta(email_login);
+                                continuar = false;
+                                }
+                                else if(certeza == 'n'){
+                                    System.out.println("Certo! operação cancelada");
+                                }
+                                break;
+                            case 1: 
+                                System.out.println("Digite a sua frase");
+                                String frase = entrada.next();
+                                mudar_frase(email_login, frase);
+                                break;
+                            default:
+                                break;
+                        }
                 } else {
                     System.out.println("Login falhou!");
                 }
