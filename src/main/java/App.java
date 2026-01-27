@@ -65,8 +65,13 @@ public class App {
 
         pstmt.setString(1, frase);
         pstmt.setString(2, email);
-        pstmt.executeUpdate();
-
+        int linhasAfetadas = pstmt.executeUpdate();
+            if (linhasAfetadas == 0) {
+                System.out.println("Falha ao adicionar a frase");
+            }
+            else{
+                System.out.println("Frase adicionada!");
+            }
     }
     }
     public static String buscar_usuario(String email) throws SQLException{
@@ -101,12 +106,13 @@ public class App {
                 continuar = false;
                 break;
             case 1:
+                entrada.nextLine();
                 System.out.println("Digite o nome");
-                String nome_cadastro = entrada.next();
+                String nome_cadastro = entrada.nextLine();
                 System.out.println("Digite o email");
-                String email_cadastro = entrada.next();
+                String email_cadastro = entrada.nextLine();
                 System.out.println("Digite a senha");
-                String senha_cadastro = entrada.next();
+                String senha_cadastro = entrada.nextLine();
 
                 add_usuario(nome_cadastro, email_cadastro, senha_cadastro);
                 ok = login(email_cadastro, senha_cadastro);
@@ -116,17 +122,19 @@ public class App {
                     System.out.println("Cadastro falhou!");
                 }
                         break;
+                
             case 2:
+                entrada.nextLine();
                 System.out.println("Digite seu email");
-                String email_login = entrada.next();
+                String email_login = entrada.nextLine();
                 System.out.println("Digite sua senha");
-                String senha_login = entrada.next();
+                String senha_login = entrada.nextLine();
                 ok = login(email_login, senha_login);
-
                 if (ok) {
                     System.out.println("Login bem-sucedido!");
                     System.out.println("O que deseja fazer?\n [0] Apagar conta\n [1] Adicionar/editar frase");
                     int oquefazer = entrada.nextInt();
+                    entrada.nextLine();
                         switch (oquefazer) {
                             case 0:
                                 System.out.println("tem certeza? s/n");
@@ -141,9 +149,9 @@ public class App {
                                 break;
                             case 1: 
                                 System.out.println("Digite a sua frase");
-                                String frase = entrada.next();
+                                String frase = entrada.nextLine();
                                 mudar_frase(email_login, frase);
-                                System.out.println("Frase adicionada!");
+                                
                                 break;
                             default:
                                 break;
