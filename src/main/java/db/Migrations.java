@@ -13,8 +13,7 @@ public class Migrations {
             "id INTEGER PRIMARY KEY AUTOINCREMENT," +
             "nome TEXT NOT NULL," +
             "email TEXT UNIQUE NOT NULL," +
-            "senha_hash TEXT NOT NULL," +
-            "salt TEXT NOT NULL);";
+            "senha_hash TEXT NOT NULL);";
     statment.executeUpdate(sql);}
 
 }
