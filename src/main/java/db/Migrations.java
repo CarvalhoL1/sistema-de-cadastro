@@ -8,7 +8,7 @@ public class Migrations {
     public static void migrate() throws SQLException {
 
     try (Connection connection = ConnectionFactory.getConnection();
-    Statement statement = connection.createStatement()) {
+    Statement statment = connection.createStatement()) {
     String sql = "CREATE TABLE IF NOT EXISTS usuarios (" +
             "id INTEGER PRIMARY KEY AUTOINCREMENT," +
             "nome TEXT NOT NULL," +
