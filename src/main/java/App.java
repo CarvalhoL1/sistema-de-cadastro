@@ -69,6 +69,22 @@ public class App {
 
     }
     }
+    public static String buscar_usuario(String email) throws SQLException{
+        String selectSQL = "SELECT frase FROM usuarios WHERE email = ?";
+        try (Connection connection = ConnectionFactory.getConnection();
+        PreparedStatement pstmt = connection.prepareStatement(selectSQL)) {
+        pstmt.setString(1, email);
+        ResultSet rs = pstmt.executeQuery();
+
+        if (rs.next()) {
+            String frase = rs.getString("frase");
+            return frase;
+        } else {
+            return "não encontrado";
+        }
+    }
+
+    }
     public static void main(String[] args){
     Scanner entrada = new Scanner(System.in);
     boolean ok;
@@ -78,7 +94,7 @@ public class App {
         System.out.println("Sucesso!");
         
         while (continuar) {
-        System.out.println("O que deseja fazer? \n [0] Sair\n [1] Cadastrar\n [2] Login");
+        System.out.println("O que deseja fazer? \n [0] Sair\n [1] Cadastrar\n [2] Login\n [3] Buscar usuario");
         int escolha = entrada.nextInt();
         switch (escolha) {
             case 0:
@@ -127,12 +143,27 @@ public class App {
                                 System.out.println("Digite a sua frase");
                                 String frase = entrada.next();
                                 mudar_frase(email_login, frase);
+                                System.out.println("Frase adicionada!");
                                 break;
                             default:
                                 break;
                         }
                 } else {
                     System.out.println("Login falhou!");
+                }
+                break;
+            case 3:
+                System.out.println("Digite o email desse usuario");
+                String email_buscar = entrada.next();
+                String frase = buscar_usuario(email_buscar);
+                if(frase != null && !frase.equals("não encontrado")){
+                    System.out.println("Usuario encontrado! sua frase é " + frase);
+                }
+                else if(frase == null){
+                    System.out.println("Usuario encontrado! parece que ele não tem frase");
+                }
+                else if(frase.equals("não encontrado")){
+                    System.out.println("Não encontrado");
                 }
                 break;
             default:
