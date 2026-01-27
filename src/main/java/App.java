@@ -9,6 +9,19 @@ import db.ConnectionFactory;
 import security.SenhaSegura;
 
 public class App {  
+    public static class Usuario {
+    int id;
+    String nome;
+    String email;
+    String frase;
+
+    public Usuario(int id, String nome, String email, String frase) {
+        this.id = id;
+        this.nome = nome;
+        this.email = email;
+        this.frase = frase;
+    }
+    }
     public static void add_usuario(String nome, String email, String senha) throws SQLException{
         String insertSQL = "INSERT INTO usuarios (nome, email, senha_hash) VALUES (?, ?, ?)";
         String hash = SenhaSegura.hashPassword(senha);
@@ -25,8 +38,8 @@ public class App {
             e.printStackTrace();
         }
     }
-    public static boolean login(String email, String senha) throws SQLException{
-        String selectSQL = "SELECT senha_hash FROM usuarios WHERE email = ?";
+    public static Usuario login(String email, String senha) throws SQLException{
+        String selectSQL = "SELECT id, nome, email, frase, senha_hash FROM usuarios WHERE email = ?";
 
     try (Connection connection = ConnectionFactory.getConnection();
          PreparedStatement pstmt = connection.prepareStatement(selectSQL)) {
@@ -34,13 +47,21 @@ public class App {
         pstmt.setString(1, email);
         ResultSet rs = pstmt.executeQuery();
 
-        if (rs.next()) {
-            String hashSalvo = rs.getString("senha_hash");
-            return SenhaSegura.checkPassword(senha, hashSalvo);
-        } else {
-            return false;
+        
+        if (!rs.next()) return null;
+        String hashSalvo = rs.getString("senha_hash");
+        if (!SenhaSegura.checkPassword(senha, hashSalvo)) {
+            return null;
         }
-    }
+        
+            return new Usuario(
+            rs.getInt("id"),
+            rs.getString("nome"),
+            rs.getString("email"),
+            rs.getString("frase")
+        );
+        }
+    
     }
 
     public static void deletar_conta(String email) throws SQLException{
@@ -92,7 +113,6 @@ public class App {
     }
     public static void main(String[] args){
     Scanner entrada = new Scanner(System.in);
-    boolean ok;
     boolean continuar = true;
         try{
             Migrations.migrate();
@@ -115,8 +135,8 @@ public class App {
                 String senha_cadastro = entrada.nextLine();
 
                 add_usuario(nome_cadastro, email_cadastro, senha_cadastro);
-                ok = login(email_cadastro, senha_cadastro);
-                if (ok) {
+        
+                if (login(email_cadastro, senha_cadastro) != null) {
                     System.out.println("Cadastro bem-sucedido!");
                 } else {
                     System.out.println("Cadastro falhou!");
@@ -129,9 +149,9 @@ public class App {
                 String email_login = entrada.nextLine();
                 System.out.println("Digite sua senha");
                 String senha_login = entrada.nextLine();
-                ok = login(email_login, senha_login);
-                if (ok) {
-                    System.out.println("Login bem-sucedido!");
+                Usuario u = login(email_login, senha_login);
+                if (u != null) {
+                    System.out.println("Login bem-sucedido! Bem vindo, " + u.nome);
                     System.out.println("O que deseja fazer?\n [0] Apagar conta\n [1] Adicionar/editar frase");
                     int oquefazer = entrada.nextInt();
                     entrada.nextLine();
