@@ -43,6 +43,12 @@ public class TelaPrincipal extends JFrame{
         new TelaSenha(u);
         dispose(); 
         });
+        JButton btnEditarFrase = new JButton("Editar Frase");
+        add(btnEditarFrase);
+        btnEditarFrase.addActionListener(e -> {
+        new TelaFrase(u);
+        dispose(); 
+        });
         JButton btnApagar = new JButton("Apagar conta");
         add(btnApagar);
         btnApagar.addActionListener(e -> {

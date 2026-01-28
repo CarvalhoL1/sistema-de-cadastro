@@ -83,7 +83,7 @@ public class metodos {
         }
     }
 }
-    public static void mudar_frase(String email, String frase) throws SQLException{
+    public static String mudar_frase(String email, String frase) throws SQLException{
         String insertSQL = "UPDATE usuarios SET frase = ? WHERE email = ?";
         try (Connection connection = ConnectionFactory.getConnection();
         PreparedStatement pstmt = connection.prepareStatement(insertSQL)) {
@@ -92,10 +92,10 @@ public class metodos {
         pstmt.setString(2, email);
         int linhasAfetadas = pstmt.executeUpdate();
             if (linhasAfetadas == 0) {
-                System.out.println("Falha ao adicionar a frase");
+                return "Falha ao adicionar a frase";
             }
             else{
-                System.out.println("Frase adicionada!");
+                return "Frase adicionada!";
             }
     }
     }
