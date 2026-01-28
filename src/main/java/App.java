@@ -82,7 +82,7 @@ public class App {
     public static void mudar_frase(String email, String frase) throws SQLException{
         String insertSQL = "UPDATE usuarios SET frase = ? WHERE email = ?";
         try (Connection connection = ConnectionFactory.getConnection();
-         PreparedStatement pstmt = connection.prepareStatement(insertSQL)) {
+        PreparedStatement pstmt = connection.prepareStatement(insertSQL)) {
 
         pstmt.setString(1, frase);
         pstmt.setString(2, email);
@@ -110,6 +110,37 @@ public class App {
         }
     }
 
+    }
+    public static void EditarSenha(String email, String senha_nova) throws SQLException{
+        String insertSQL = "UPDATE usuarios SET senha_hash = ? WHERE email = ?";
+        try (Connection connection = ConnectionFactory.getConnection();
+        PreparedStatement pstmt = connection.prepareStatement(insertSQL)) {
+        String hash = SenhaSegura.hashPassword(senha_nova);
+        pstmt.setString(1, hash);
+        pstmt.setString(2, email);
+        int linhasAfetadas = pstmt.executeUpdate();
+            if (linhasAfetadas == 0) {
+                System.out.println("Falha ao mudar a senha");
+            }
+            else{
+                System.out.println("Senha alterada!");
+            }
+    }
+    }
+    public static void EditarNome(String email, String nome_novo) throws SQLException{
+        String insertSQL = "UPDATE usuarios SET nome = ? WHERE email = ?";
+        try (Connection connection = ConnectionFactory.getConnection();
+        PreparedStatement pstmt = connection.prepareStatement(insertSQL)) {
+        pstmt.setString(1, nome_novo);
+        pstmt.setString(2, email);
+        int linhasAfetadas = pstmt.executeUpdate();
+            if (linhasAfetadas == 0) {
+                System.out.println("Falha ao mudar o nome");
+            }
+            else{
+                System.out.println("Nome alterado!");
+            }
+    }
     }
     public static void main(String[] args){
     Scanner entrada = new Scanner(System.in);
@@ -152,7 +183,7 @@ public class App {
                 Usuario u = login(email_login, senha_login);
                 if (u != null) {
                     System.out.println("Login bem-sucedido! Bem vindo, " + u.nome);
-                    System.out.println("O que deseja fazer?\n [0] Apagar conta\n [1] Adicionar/editar frase");
+                    System.out.println("O que deseja fazer?\n [0] Apagar conta\n [1] Adicionar/editar frase\n [2] Editar nome\n [3] Editar senha");
                     int oquefazer = entrada.nextInt();
                     entrada.nextLine();
                         switch (oquefazer) {
@@ -172,6 +203,16 @@ public class App {
                                 String frase = entrada.nextLine();
                                 mudar_frase(email_login, frase);
                                 
+                                break;
+                            case 2:
+                                System.out.println("Digite o novo nome");
+                                String nome = entrada.nextLine();
+                                EditarNome(email_login, nome);
+                                break;
+                            case 3:
+                                System.out.println("Digite a nova senha");
+                                String senha = entrada.nextLine();
+                                EditarSenha(email_login, senha);
                                 break;
                             default:
                                 break;
