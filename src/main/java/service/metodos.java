@@ -115,7 +115,7 @@ public class metodos {
     }
 
     }
-    public static void EditarSenha(String email, String senha_nova) throws SQLException{
+    public static String EditarSenha(String email, String senha_nova) throws SQLException{
         String insertSQL = "UPDATE usuarios SET senha_hash = ? WHERE email = ?";
         try (Connection connection = ConnectionFactory.getConnection();
         PreparedStatement pstmt = connection.prepareStatement(insertSQL)) {
@@ -124,10 +124,10 @@ public class metodos {
         pstmt.setString(2, email);
         int linhasAfetadas = pstmt.executeUpdate();
             if (linhasAfetadas == 0) {
-                System.out.println("Falha ao mudar a senha");
+                return "Falha ao mudar a senha";
             }
             else{
-                System.out.println("Senha alterada!");
+                return "Senha alterada! será atualizado na sua proxima secção";
             }
     }
     }

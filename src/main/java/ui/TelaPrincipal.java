@@ -34,6 +34,14 @@ public class TelaPrincipal extends JFrame{
         new TelaNome(u);
         dispose(); 
         });
+        JButton btnEditarSenha = new JButton("Editar senha");
+        add(btnEditarSenha);
+        btnEditarSenha.addActionListener(e -> {
+        new TelaSenha(u);
+        dispose(); 
+        });
+        JButton btnApagar = new JButton("Apagar conta");
+        add(btnApagar);
         setVisible(true);
         
     }
