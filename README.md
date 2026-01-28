@@ -94,10 +94,8 @@ Este projeto foi feito com foco em:
 
 ---
 
-## Possíveis Melhorias Futuras
+## Melhorias Futuras 
 
-- Interface gráfica ou web  
-- Recuperação de senha  
-- Sistema de sessões 
+- Estilização da interface gráfica
 
 ---
