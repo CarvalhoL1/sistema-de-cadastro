@@ -2,6 +2,7 @@
 
 Projeto desenvolvido para praticar **Java, JDBC, SQLite e segurança de autenticação**.  
 O sistema permite o cadastro, login, gerenciamento de conta e armazenamento de dados de usuários de forma segura.
+Este projeto possui uma interface gráfica desenvolvida com **Java Swing**, permitindo que o usuário interaja com o sistema de forma visual, sem precisar utilizar o terminal.
 
 ---
 
@@ -21,7 +22,8 @@ O sistema permite o cadastro, login, gerenciamento de conta e armazenamento de d
 - **SQLite**
 - **JDBC**
 - **BCrypt (jBCrypt)** para hash de senhas
-- **Maven** para gerenciamento de dependências
+- **Maven** para gerenciamento de dependência
+- **Swing** para a UI (user interface)
 
 ---
 
@@ -34,20 +36,6 @@ O sistema utiliza **BCrypt**, que:
 - Gera hash seguro automaticamente  
 - Inclui salt embutido no hash  
 - Protege contra ataques de força bruta  
-
----
-
-## Estrutura do Projeto
-
-```
-src/main/java
- ├── App.java                  # Interface de console
- ├── db
- │    ├── ConnectionFactory.java  # Conexão com o banco
- │    └── Migrations.java         # Criação automática das tabelas
- └── security
-      └── SenhaSegura.java        # Hash e verificação de senha (BCrypt)
-```
 
 ---
 
@@ -87,7 +75,9 @@ Ou execute diretamente pelo botão **Run** no `App.java` (VS Code).
    - Cadastrar conta  
    - Fazer login  
    - Deletar conta  
-   - Salvar/editar sua frase  
+   - Salvar/editar sua frase
+   - Buscar frases de outros usuarios
+    
 3. Senhas são validadas usando BCrypt  
 
 ---
@@ -104,10 +94,8 @@ Este projeto foi feito com foco em:
 
 ---
 
-## Possíveis Melhorias Futuras
+## Melhorias Futuras 
 
-- Interface gráfica ou web  
-- Recuperação de senha  
-- Sistema de sessões 
+- Estilização da interface gráfica
 
 ---
