@@ -42,6 +42,28 @@ public class TelaPrincipal extends JFrame{
         });
         JButton btnApagar = new JButton("Apagar conta");
         add(btnApagar);
+        btnApagar.addActionListener(e -> {
+             int resposta = JOptionPane.showConfirmDialog(
+                        this,
+                        "Tem certeza que deseja excluir sua conta??",
+                        "Confirmar Ação",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE
+                );
+                if (resposta == JOptionPane.YES_OPTION) {
+                    try{
+                        metodos.deletar_conta(u.getEmail());
+                        JOptionPane.showMessageDialog(this, "Conta excluida, voltando a tela inicial.");
+                        new TelaLogin();
+                        dispose();
+                    }
+                    catch(SQLException ex){
+                        JOptionPane.showMessageDialog(this, "Erro no banco: " + ex.getMessage());
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Ação cancelada");
+                }
+        });
         setVisible(true);
         
     }
