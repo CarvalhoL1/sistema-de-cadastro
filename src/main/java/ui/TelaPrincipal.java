@@ -14,11 +14,18 @@ public class TelaPrincipal extends JFrame{
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new GridLayout(4, 4, 2, 4));
+        add(new JLabel("Olá, " + u.getNome() + " o que deseja fazer?"));
         JButton btnVoltar = new JButton("Logout");
         add(btnVoltar);
         btnVoltar.addActionListener(e -> {
             new TelaLogin();
             dispose(); 
+        });
+        JButton btnBuscar = new JButton("Buscar Usuario");
+        add(btnBuscar);
+        btnBuscar.addActionListener(e -> {
+        new TelaBusca(u);
+        dispose(); 
         });
         setVisible(true);
         
