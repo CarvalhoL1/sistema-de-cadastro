@@ -42,7 +42,7 @@ public class TelaLogin extends JFrame {
         setVisible(true);
     }
 
-     private void fazerLogin() {
+     private void fazerLogin(){
         String email = emailCampo.getText().trim();
         String senha = new String(senhaCampo.getPassword());
 
@@ -56,8 +56,8 @@ public class TelaLogin extends JFrame {
 
             if (u != null) {
                 JOptionPane.showMessageDialog(this, "Bem-vindo, " + u.getNome() + "!");
-                //new TelaPrincipal(u);
-               // dispose();
+                new TelaPrincipal(u);
+                dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Email ou senha incorretos.");
             }
