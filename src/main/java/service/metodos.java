@@ -131,7 +131,7 @@ public class metodos {
             }
     }
     }
-    public static void EditarNome(String email, String nome_novo) throws SQLException{
+    public static String EditarNome(String email, String nome_novo) throws SQLException{
         String insertSQL = "UPDATE usuarios SET nome = ? WHERE email = ?";
         try (Connection connection = ConnectionFactory.getConnection();
         PreparedStatement pstmt = connection.prepareStatement(insertSQL)) {
@@ -139,10 +139,10 @@ public class metodos {
         pstmt.setString(2, email);
         int linhasAfetadas = pstmt.executeUpdate();
             if (linhasAfetadas == 0) {
-                System.out.println("Falha ao mudar o nome");
+                return "Falha ao mudar o nome";
             }
             else{
-                System.out.println("Nome alterado!");
+                return "Nome alterado! será atualizado na sua proxima secção";
             }
     }
     }

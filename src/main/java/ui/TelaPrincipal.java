@@ -15,6 +15,7 @@ public class TelaPrincipal extends JFrame{
         setLocationRelativeTo(null);
         setLayout(new GridLayout(4, 4, 2, 4));
         add(new JLabel("Olá, " + u.getNome() + " o que deseja fazer?"));
+        add(new JLabel("Sua frase é: " + u.getFrase()));
         JButton btnVoltar = new JButton("Logout");
         add(btnVoltar);
         btnVoltar.addActionListener(e -> {
@@ -25,6 +26,12 @@ public class TelaPrincipal extends JFrame{
         add(btnBuscar);
         btnBuscar.addActionListener(e -> {
         new TelaBusca(u);
+        dispose(); 
+        });
+        JButton btnEditarNome = new JButton("Editar nome");
+        add(btnEditarNome);
+        btnEditarNome.addActionListener(e -> {
+        new TelaNome(u);
         dispose(); 
         });
         setVisible(true);
