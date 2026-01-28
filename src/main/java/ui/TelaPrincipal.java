@@ -13,7 +13,8 @@ public class TelaPrincipal extends JFrame{
         setSize(600, 400);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setLayout(new GridLayout(4, 4, 2, 4));
+
+        setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
         add(new JLabel("Olá, " + u.getNome() + " o que deseja fazer?"));
         add(new JLabel("Sua frase é: " + u.getFrase()));
         JButton btnVoltar = new JButton("Logout");

@@ -17,14 +17,19 @@ public class TelaLogin extends JFrame {
         setSize(600, 400);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setLayout(new GridLayout(4, 4, 2, 4));
 
+        setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
+        
         add(new JLabel("Email:"));
         emailCampo = new JTextField();
+        emailCampo.setMaximumSize(new Dimension(400, 40));
+        emailCampo.setFont(new Font("SansSerif", Font.PLAIN, 14));
         add(emailCampo);
 
         add(new JLabel("Senha:"));
         senhaCampo = new JPasswordField();
+        senhaCampo.setMaximumSize(new Dimension(400, 40));
+        senhaCampo.setFont(new Font("SansSerif", Font.PLAIN, 14));
         add(senhaCampo);
 
         btnEntrar = new JButton("Entrar");

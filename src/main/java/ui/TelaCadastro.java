@@ -17,28 +17,36 @@ public class TelaCadastro extends JFrame{
         setSize(600, 400);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setLayout(new GridLayout(4, 4, 2, 4));
+        setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
         JButton btnVoltar = new JButton("Voltar para login");
         add(btnVoltar);
         btnVoltar.addActionListener(e -> {
             new TelaLogin();
             dispose(); 
         });
+
         add(new JLabel("Nome:"));
         nomeCampo = new JTextField();
+        nomeCampo.setMaximumSize(new Dimension(400, 40));
+        nomeCampo.setFont(new Font("SansSerif", Font.PLAIN, 14));
         add(nomeCampo);
 
         add(new JLabel("Email:"));
         emailCampo = new JTextField();
+        emailCampo.setMaximumSize(new Dimension(400, 40));
+        emailCampo.setFont(new Font("SansSerif", Font.PLAIN, 14));
         add(emailCampo);
 
         add(new JLabel("Senha:"));
         senhaCampo = new JPasswordField();
+        senhaCampo.setMaximumSize(new Dimension(400, 40));
+        senhaCampo.setFont(new Font("SansSerif", Font.PLAIN, 14));
         add(senhaCampo);
 
         btnCriar = new JButton("Criar conta");
         add(btnCriar);
         btnCriar.addActionListener(e -> Cadastro());
+
         setVisible(true);
     }
     private void Cadastro(){
