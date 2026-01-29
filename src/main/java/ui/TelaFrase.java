@@ -15,19 +15,43 @@ public class TelaFrase extends JFrame {
         setSize(600, 400);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setLayout(new GridLayout(4, 4, 2, 4));
+
+        JPanel painelPrincipal = new JPanel();
+        painelPrincipal.setLayout(new BoxLayout(painelPrincipal, BoxLayout.Y_AXIS));
+        painelPrincipal.setBorder(BorderFactory.createEmptyBorder(20, 60, 20, 60));
+
+        JPanel topo = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
         JButton btnVoltar = new JButton("Voltar");
-        add(btnVoltar);
+        topo.add(btnVoltar);
+
         btnVoltar.addActionListener(e -> {
             new TelaPrincipal(u);
             dispose();
         });
-        add(new JLabel("Digite a nova frase "));
+
+        JLabel lblfrase = new JLabel("Digite a nova frase:");
+        lblfrase.setAlignmentX(Component.CENTER_ALIGNMENT);
+        lblfrase.setAlignmentY(Component.CENTER_ALIGNMENT);
         fraseCampo = new JTextField();
-        add(fraseCampo);
-        JButton btnfrase = new JButton("Adicionar");
-        add(btnfrase);
-        btnfrase.addActionListener(e -> mudarFrase(u));
+        fraseCampo.setMaximumSize(new Dimension(400, 40)); 
+        fraseCampo.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        fraseCampo.setAlignmentY(Component.CENTER_ALIGNMENT);
+
+        JButton btnFrase = new JButton("Adicionar");
+        btnFrase.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnFrase.addActionListener(e -> mudarFrase(u));
+
+        painelPrincipal.add(topo);
+        painelPrincipal.add(Box.createVerticalStrut(30));
+
+        painelPrincipal.add(lblfrase);
+        painelPrincipal.add(Box.createVerticalStrut(8));
+        painelPrincipal.add(fraseCampo);
+
+        painelPrincipal.add(Box.createVerticalStrut(20));
+        painelPrincipal.add(btnFrase);
+
+        setContentPane(painelPrincipal);
         setVisible(true);
     }
     private void mudarFrase(Usuario u){

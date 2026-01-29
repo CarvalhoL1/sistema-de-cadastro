@@ -14,16 +14,30 @@ public class TelaBusca extends JFrame{
         setSize(600, 400);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setLayout(new GridLayout(4, 4, 2, 4));
-        add(new JLabel("Olá, " + u.getNome() + " quem deseja buscar?"));
-        add(new JLabel("Email da pessoa:"));
+
+        JPanel painelPrincipal = new JPanel();
+        painelPrincipal.setLayout(new BoxLayout(painelPrincipal, BoxLayout.Y_AXIS));
+        painelPrincipal.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
+        painelPrincipal.add(Box.createVerticalStrut(15));
+        painelPrincipal.add(new JLabel("Olá, " + u.getNome() + " quem deseja buscar?"));
+        painelPrincipal.add(new JLabel("Email da pessoa:"));
         buscaCampo = new JTextField();
-        add(buscaCampo);
+        buscaCampo.setMaximumSize(new Dimension(400, 40));
         JButton btnBuscar = new JButton("Buscar");
-        add(btnBuscar);
+        
         btnBuscar.addActionListener(e -> Buscar());
         JButton btnVoltar = new JButton("Voltar");
-        add(btnVoltar);
+        
+        
+
+        painelPrincipal.add(buscaCampo);
+        painelPrincipal.add(Box.createVerticalStrut(15));
+        painelPrincipal.add(btnBuscar);
+        painelPrincipal.add(Box.createVerticalStrut(15));
+        painelPrincipal.add(btnVoltar);
+
+        setContentPane(painelPrincipal);
+
         btnVoltar.addActionListener(e -> {
             new TelaPrincipal(u);
             dispose();

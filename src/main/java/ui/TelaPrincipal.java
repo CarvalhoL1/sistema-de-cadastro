@@ -13,44 +13,62 @@ public class TelaPrincipal extends JFrame{
         setSize(600, 400);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+        JPanel painelPrincipal = new JPanel();
+        painelPrincipal.setLayout(new BoxLayout(painelPrincipal, BoxLayout.Y_AXIS));
+        painelPrincipal.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
 
         setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
-        add(new JLabel("Olá, " + u.getNome() + " o que deseja fazer?"));
+        painelPrincipal.add(new JLabel("Olá, " + u.getNome() + " o que deseja fazer?"));
         if(u.getFrase() != "não encontrado" && u.getFrase() != null){
-        add(new JLabel("Sua frase é: " + u.getFrase()));
+        painelPrincipal.add(new JLabel("Sua frase é: " + u.getFrase()));
     }
         JButton btnVoltar = new JButton("Logout");
-        add(btnVoltar);
-        btnVoltar.addActionListener(e -> {
-            new TelaLogin();
-            dispose(); 
-        });
+        
+        
         JButton btnBuscar = new JButton("Buscar Usuario");
-        add(btnBuscar);
+        
         btnBuscar.addActionListener(e -> {
         new TelaBusca(u);
         dispose(); 
         });
         JButton btnEditarNome = new JButton("Editar nome");
-        add(btnEditarNome);
+        
         btnEditarNome.addActionListener(e -> {
         new TelaNome(u);
         dispose(); 
         });
         JButton btnEditarSenha = new JButton("Editar senha");
-        add(btnEditarSenha);
+        
         btnEditarSenha.addActionListener(e -> {
         new TelaSenha(u);
         dispose(); 
         });
         JButton btnEditarFrase = new JButton("Editar Frase");
-        add(btnEditarFrase);
+        
         btnEditarFrase.addActionListener(e -> {
         new TelaFrase(u);
         dispose(); 
         });
         JButton btnApagar = new JButton("Apagar conta");
-        add(btnApagar);
+
+        painelPrincipal.add(btnVoltar);
+        painelPrincipal.add(Box.createVerticalStrut(8));
+        painelPrincipal.add(btnBuscar);
+        painelPrincipal.add(Box.createVerticalStrut(8));
+        painelPrincipal.add(btnEditarNome);
+        painelPrincipal.add(Box.createVerticalStrut(8));
+        painelPrincipal.add(btnEditarSenha);
+        painelPrincipal.add(Box.createVerticalStrut(8));
+        painelPrincipal.add(btnEditarFrase);
+        painelPrincipal.add(Box.createVerticalStrut(8));
+        painelPrincipal.add(btnApagar);
+
+        setContentPane(painelPrincipal);
+
+        btnVoltar.addActionListener(e -> {
+            new TelaLogin();
+            dispose(); 
+        });
         btnApagar.addActionListener(e -> {
              int resposta = JOptionPane.showConfirmDialog(
                         this,

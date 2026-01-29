@@ -15,19 +15,39 @@ public class TelaSenha extends JFrame {
         setSize(600, 400);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setLayout(new GridLayout(4, 4, 2, 4));
+        
+        JPanel painelPrincipal = new JPanel();
+        painelPrincipal.setLayout(new BoxLayout(painelPrincipal, BoxLayout.Y_AXIS));
+        painelPrincipal.setBorder(BorderFactory.createEmptyBorder(20, 60, 20, 60));
+        JPanel topo = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+        
+
+        setContentPane(painelPrincipal);
         JButton btnVoltar = new JButton("Voltar");
-        add(btnVoltar);
+       
         btnVoltar.addActionListener(e -> {
             new TelaPrincipal(u);
             dispose();
         });
-        add(new JLabel("Digite a nova senha "));
+        JLabel lblsenha = new JLabel("Digite a nova senha ");
         senhaCampo = new JTextField();
-        add(senhaCampo);
+        senhaCampo.setAlignmentX(Component.CENTER_ALIGNMENT);
+        senhaCampo.setMaximumSize(new Dimension(400, 40)); 
+        lblsenha.setAlignmentX(Component.CENTER_ALIGNMENT);
         JButton btnSenha = new JButton("Adicionar");
-        add(btnSenha);
+        btnSenha.setAlignmentX(Component.CENTER_ALIGNMENT);
         btnSenha.addActionListener(e -> mudarSenha(u));
+        topo.add(btnVoltar);
+        painelPrincipal.add(topo);
+        painelPrincipal.add(Box.createVerticalStrut(30));
+
+        painelPrincipal.add(lblsenha);
+        painelPrincipal.add(Box.createVerticalStrut(8));
+        painelPrincipal.add(senhaCampo);
+
+        painelPrincipal.add(Box.createVerticalStrut(20));
+        painelPrincipal.add(btnSenha);
+        setContentPane(painelPrincipal);
         setVisible(true);
     }
     private void mudarSenha(Usuario u){
