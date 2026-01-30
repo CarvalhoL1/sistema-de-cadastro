@@ -47,18 +47,20 @@ public class TelaBusca extends JFrame{
     private void Buscar(){
         String busca = buscaCampo.getText().trim();
         try{
-            String frase = metodos.buscar_usuario(busca);
-            if (frase != "não encontrado"){
-                if (frase == null) {
-                    JOptionPane.showMessageDialog(this, "Usuario encontrado! esse usuario não possui frase");
-                }
-                else{
-                    JOptionPane.showMessageDialog(this, "Usuario encontrado! sua frase é " + frase);
-                }             
-            }
-            else{
+            Usuario u = metodos.buscar_usuario(busca);
+            if(u == null){
                 JOptionPane.showMessageDialog(this, "Usuario não encontrado!");
             }
+            else if (u.getFrase() == null) {
+                JOptionPane.showMessageDialog(this, "Usuario encontrado! esse usuario não possui frase");
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Usuario encontrado! sua frase é " + u.getFrase() + " e seu nome é " + u.getNome());
+            }
+
+
+
+
         }
         catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Erro no banco: " + ex.getMessage());

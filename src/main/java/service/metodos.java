@@ -99,22 +99,22 @@ public class metodos {
             }
     }
     }
-    public static String buscar_usuario(String email) throws SQLException{
-        String selectSQL = "SELECT frase FROM usuarios WHERE email = ?";
+    public static Usuario buscar_usuario(String email) throws SQLException{
+        String selectSQL = "SELECT id, nome, email, frase, senha_hash FROM usuarios WHERE email = ?";
         try (Connection connection = ConnectionFactory.getConnection();
         PreparedStatement pstmt = connection.prepareStatement(selectSQL)) {
         pstmt.setString(1, email);
         ResultSet rs = pstmt.executeQuery();
-
-        if (rs.next()) {
-            String frase = rs.getString("frase");
-            return frase;
-        } else {
-            return "não encontrado";
+        if (!rs.next()) return null;
+            return new Usuario(
+                rs.getInt("id"),
+                rs.getString("nome"),
+                rs.getString("email"),
+                rs.getString("frase")
+            );
         }
     }
 
-    }
     public static String EditarSenha(String email, String senha_nova) throws SQLException{
         String insertSQL = "UPDATE usuarios SET senha_hash = ? WHERE email = ?";
         try (Connection connection = ConnectionFactory.getConnection();
