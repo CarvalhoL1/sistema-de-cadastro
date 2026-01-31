@@ -44,16 +44,17 @@ public class TelaLogin  {
 
             if (u != null) {
                 alert("Bem-vindo, " + u.getNome() + "!");
+                Sessao.usuarioLogado = u;
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/tela-principal.fxml"));
                     Parent root = loader.load();
+
                     TelaPrincipal controller = loader.getController();
-                    controller.setUsuario(u);
+                    controller.setUsuario(Sessao.usuarioLogado);
 
                     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     stage.setScene(new Scene(root));
                     stage.show();
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

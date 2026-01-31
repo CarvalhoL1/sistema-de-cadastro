@@ -1,67 +1,58 @@
 package ui;
 
-import javax.swing.*;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import service.metodos;
 import service.metodos.Usuario;
 
-import java.awt.*;
+import java.io.IOException;
 import java.sql.SQLException;
 
 
-public class TelaNome extends JFrame {
-    private JTextField nomeCampo;
-    public TelaNome(Usuario u){
-        setTitle("Editar Nome");
-        setSize(600, 400);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+public class TelaNome{
+    @FXML
+    TextField nomeCampo;
 
-        JPanel painelPrincipal = new JPanel();
-        painelPrincipal.setLayout(new BoxLayout(painelPrincipal, BoxLayout.Y_AXIS));
-        painelPrincipal.setBorder(BorderFactory.createEmptyBorder(20, 60, 20, 60));
-
-        JPanel topo = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-
-        JButton btnVoltar = new JButton("Voltar");
-        topo.add(btnVoltar);
-
-        btnVoltar.addActionListener(e -> {
-            new TelaPrincipal();
-            dispose();
-        });
-        JLabel lblnome = new JLabel("Digite o novo nome ");
-        lblnome.setAlignmentX(Component.CENTER_ALIGNMENT);
-        nomeCampo = new JTextField();
-        nomeCampo.setMaximumSize(new Dimension(400, 40));
-        nomeCampo.setFont(new Font("SansSerif", Font.PLAIN, 14));
-        nomeCampo.setAlignmentX(Component.CENTER_ALIGNMENT);
-        JButton btnNome = new JButton("Adicionar");
-        btnNome.setAlignmentX(Component.CENTER_ALIGNMENT);
-        btnNome.addActionListener(e -> mudarNome(u));
-        nomeCampo.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        painelPrincipal.add(topo);
-        painelPrincipal.add(Box.createVerticalStrut(30));
-
-        painelPrincipal.add(lblnome);
-        painelPrincipal.add(Box.createVerticalStrut(8));
-        painelPrincipal.add(nomeCampo);
-
-        painelPrincipal.add(Box.createVerticalStrut(20));
-        painelPrincipal.add(btnNome);
-
-        setContentPane(painelPrincipal);
-
-        setVisible(true);
+    private void alert(String mensagem) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setContentText(mensagem);
+        alert.showAndWait();
     }
-    private void mudarNome(Usuario u){
+
+    @FXML
+    private void voltarPainel(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/tela-principal.fxml"));
+        Parent root = loader.load();
+        TelaPrincipal controller = loader.getController();
+        controller.setUsuario(Sessao.usuarioLogado);
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+    @FXML
+    private void mudarFrase(ActionEvent event){
         String nome = nomeCampo.getText().trim();
+        Usuario u = Sessao.usuarioLogado;
+        if (nome.isEmpty()) {
+            alert("Digite o novo nome!");
+            return;
+        }
+
         try{
             String resultado = metodos.EditarNome(u.getEmail(), nome);
-            JOptionPane.showMessageDialog(this, resultado);
+            alert(resultado);
         }
         catch(SQLException ex){
-            JOptionPane.showMessageDialog(this, "Erro no banco: " + ex.getMessage());
+            alert("Erro no banco: " + ex.getMessage());
         }
     }
 }

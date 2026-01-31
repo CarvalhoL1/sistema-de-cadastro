@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import service.metodos;
 import service.metodos.Usuario;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class TelaBusca{
@@ -25,8 +26,15 @@ public class TelaBusca{
         alert.showAndWait();
     }
     @FXML
-    private void voltarLogin(){
+    private void voltarPainel(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/tela-principal.fxml"));
+        Parent root = loader.load();
+        TelaPrincipal controller = loader.getController();
+        controller.setUsuario(Sessao.usuarioLogado);
 
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
     }
     @FXML
     private void buscarUsuario(){

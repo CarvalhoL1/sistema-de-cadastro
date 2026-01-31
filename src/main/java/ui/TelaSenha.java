@@ -1,63 +1,58 @@
 package ui;
 
-import javax.swing.*;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import service.metodos;
 import service.metodos.Usuario;
 
-import java.awt.*;
+import java.io.IOException;
 import java.sql.SQLException;
 
 
-public class TelaSenha extends JFrame {
-    private JTextField senhaCampo;
-    public TelaSenha(Usuario u){
-        setTitle("Editar Senha");
-        setSize(600, 400);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-        
-        JPanel painelPrincipal = new JPanel();
-        painelPrincipal.setLayout(new BoxLayout(painelPrincipal, BoxLayout.Y_AXIS));
-        painelPrincipal.setBorder(BorderFactory.createEmptyBorder(20, 60, 20, 60));
-        JPanel topo = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-        
+public class TelaSenha{
+    @FXML
+    PasswordField senhaCampo;
 
-        setContentPane(painelPrincipal);
-        JButton btnVoltar = new JButton("Voltar");
-       
-        btnVoltar.addActionListener(e -> {
-            new TelaPrincipal();
-            dispose();
-        });
-        JLabel lblsenha = new JLabel("Digite a nova senha ");
-        senhaCampo = new JTextField();
-        senhaCampo.setAlignmentX(Component.CENTER_ALIGNMENT);
-        senhaCampo.setMaximumSize(new Dimension(400, 40)); 
-        lblsenha.setAlignmentX(Component.CENTER_ALIGNMENT);
-        JButton btnSenha = new JButton("Adicionar");
-        btnSenha.setAlignmentX(Component.CENTER_ALIGNMENT);
-        btnSenha.addActionListener(e -> mudarSenha(u));
-        topo.add(btnVoltar);
-        painelPrincipal.add(topo);
-        painelPrincipal.add(Box.createVerticalStrut(30));
-
-        painelPrincipal.add(lblsenha);
-        painelPrincipal.add(Box.createVerticalStrut(8));
-        painelPrincipal.add(senhaCampo);
-
-        painelPrincipal.add(Box.createVerticalStrut(20));
-        painelPrincipal.add(btnSenha);
-        setContentPane(painelPrincipal);
-        setVisible(true);
+    private void alert(String mensagem) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setContentText(mensagem);
+        alert.showAndWait();
     }
-    private void mudarSenha(Usuario u){
+
+    @FXML
+    private void voltarPainel(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/tela-principal.fxml"));
+        Parent root = loader.load();
+        TelaPrincipal controller = loader.getController();
+        controller.setUsuario(Sessao.usuarioLogado);
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+    @FXML
+    private void mudarSenha(ActionEvent event){
         String senha = senhaCampo.getText().trim();
+        Usuario u = Sessao.usuarioLogado;
+        if (senha.isEmpty()) {
+            alert("Digite a nova senha!");
+            return;
+        }
+
         try{
             String resultado = metodos.EditarSenha(u.getEmail(), senha);
-            JOptionPane.showMessageDialog(this, resultado);
+            alert(resultado);
         }
         catch(SQLException ex){
-            JOptionPane.showMessageDialog(this, "Erro no banco: " + ex.getMessage());
+            alert("Erro no banco: " + ex.getMessage());
         }
     }
 }
