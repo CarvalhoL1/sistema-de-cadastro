@@ -31,12 +31,8 @@ public class TelaLogin  {
 
     @FXML
      private void fazerLogin(ActionEvent event){
-        String email = emailCampo.getText();
+        String email = emailCampo.getText().trim();
         String senha = this.senhaCampo.getText();
-
-        System.out.println("Login clicado!");
-        System.out.println("Email: " + email);
-        System.out.println("Senha: " + senha);
 
         if (email.isEmpty() || senha.isEmpty()) {
             alert("Preencha email e senha.");

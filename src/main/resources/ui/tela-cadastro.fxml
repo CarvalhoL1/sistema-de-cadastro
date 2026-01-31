@@ -3,14 +3,17 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" prefHeight="250" prefWidth="400" spacing="12" fx:controller="ui.TelaCadastro" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="CENTER" prefHeight="250" prefWidth="400" spacing="12" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.TelaCadastro">
     <children>
+        <Button mnemonicParsing="false" onAction="#abrirLogin" text="Voltar para o login" />
         <Label prefHeight="18.0" prefWidth="221.0" text="Criar conta" />
+        <Label prefHeight="18.0" prefWidth="215.0" text="Nome:" />
+        <TextField fx:id="nomeCampo" maxWidth="220.0" minWidth="-Infinity" prefHeight="8.0" prefWidth="200.0" promptText="digite o nome aqui" />
         <Label prefHeight="18.0" prefWidth="215.0" text="Email:" />
-        <TextField maxWidth="220.0" minWidth="-Infinity" prefHeight="8.0" prefWidth="200.0" promptText="digite o email aqui" />
-        <Label prefHeight="18.0" prefWidth="219.0" text="Senha" onAction="#fazerCadastro"/>
-        <TextField maxWidth="220.0" minWidth="-Infinity" prefHeight="8.0" prefWidth="200.0" promptText="digite a senha aqui" />
-        <Button mnemonicParsing="false" text="Voltar para o login" onAction="#fazerLogin"/>
+        <TextField fx:id="emailCampo" maxWidth="220.0" minWidth="-Infinity" prefHeight="8.0" prefWidth="200.0" promptText="digite o email aqui" />
+        <Label prefHeight="18.0" prefWidth="219.0" text="Senha" />
+        <PasswordField fx:id="senhaCampo" maxWidth="220.0" minWidth="-Infinity" prefHeight="8.0" prefWidth="200.0" promptText="digite a senha aqui" />
+      <Button mnemonicParsing="false" onAction="#fazerCadastro" text="Criar conta" />
     </children>
 
 </VBox>
