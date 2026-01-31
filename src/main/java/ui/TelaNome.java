@@ -39,7 +39,7 @@ public class TelaNome{
         stage.show();
     }
     @FXML
-    private void mudarFrase(ActionEvent event){
+    private void mudarNome(ActionEvent event){
         String nome = nomeCampo.getText().trim();
         Usuario u = Sessao.usuarioLogado;
         if (nome.isEmpty()) {
