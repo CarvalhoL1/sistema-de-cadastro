@@ -1,83 +1,45 @@
 package ui;
 
-import javax.swing.*;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import service.metodos;
 import service.metodos.Usuario;
 
-import java.awt.*;
 import java.sql.SQLException;
 
-public class TelaLogin extends JFrame {
-    private JTextField emailCampo;
-    private JPasswordField senhaCampo;
-    private JButton btnEntrar;
-    private JButton btnCadastro;
-    public TelaLogin() {
-        setTitle("Login");
-        setSize(600, 400);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-        JPanel painelPrincipal = new JPanel();
-        painelPrincipal.setLayout(new BoxLayout(painelPrincipal, BoxLayout.Y_AXIS));
-        painelPrincipal.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
-        
-        setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
-        
-        JLabel lblEmail = new JLabel("Email:");
-        emailCampo = new JTextField();
-        emailCampo.setMaximumSize(new Dimension(400, 40));
-        emailCampo.setFont(new Font("SansSerif", Font.PLAIN, 14));
+public class TelaLogin  {
 
-        JLabel lblSenha = new JLabel("Senha:");
-        senhaCampo = new JPasswordField();
-        senhaCampo.setMaximumSize(new Dimension(400, 40));
-        senhaCampo.setFont(new Font("SansSerif", Font.PLAIN, 14));
+    @FXML
+    private TextField emailCampo;
 
-        btnEntrar = new JButton("Entrar");
-        add(new JLabel());
-        btnEntrar.setAlignmentX(Component.CENTER_ALIGNMENT);
+    @FXML
+    private PasswordField senhaCampo;
 
-        JLabel lblConta = new JLabel("Não tem uma conta?");
-        lblConta.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-
-        btnCadastro = new JButton("Criar conta");
-        btnCadastro.setAlignmentX(Component.CENTER_ALIGNMENT);
-        painelPrincipal.add(lblEmail);
-        painelPrincipal.add(Box.createVerticalStrut(5));
-        painelPrincipal.add(emailCampo);
-
-        painelPrincipal.add(Box.createVerticalStrut(15));
-
-        painelPrincipal.add(lblSenha);
-        painelPrincipal.add(Box.createVerticalStrut(5));
-        painelPrincipal.add(senhaCampo);
-
-        painelPrincipal.add(Box.createVerticalStrut(20));
-
-        painelPrincipal.add(btnEntrar);
-
-        painelPrincipal.add(Box.createVerticalStrut(15));
-
-        painelPrincipal.add(lblConta);
-        painelPrincipal.add(Box.createVerticalStrut(8));
-        painelPrincipal.add(btnCadastro);
-        
-        setContentPane(painelPrincipal);
-        btnEntrar.addActionListener(e -> fazerLogin());
-        btnCadastro.addActionListener(e -> {
-            new TelaCadastro();
-            dispose();
-        });
-        setVisible(true);
+    private void alert(String mensagem) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setContentText(mensagem);
+        alert.showAndWait();
     }
 
-     private void fazerLogin(){
-        String email = emailCampo.getText().trim();
-        String senha = new String(senhaCampo.getPassword());
+    @FXML
+     private void fazerLogin(ActionEvent event){
+        String email = emailCampo.getText();
+        String senha = this.senhaCampo.getText();
+
+        System.out.println("Login clicado!");
+        System.out.println("Email: " + email);
+        System.out.println("Senha: " + senha);
 
         if (email.isEmpty() || senha.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Preencha email e senha.");
+            alert("Preencha email e senha.");
             return;
         }
 
@@ -85,15 +47,43 @@ public class TelaLogin extends JFrame {
             Usuario u = metodos.login(email, senha);
 
             if (u != null) {
-                JOptionPane.showMessageDialog(this, "Bem-vindo, " + u.getNome() + "!");
-                new TelaPrincipal(u);
-                dispose();
+                alert("Bem-vindo, " + u.getNome() + "!");
+                try {
+                    javafx.fxml.FXMLLoader loader =
+                            new javafx.fxml.FXMLLoader(getClass().getResource("/ui/tela-principal.fxml"));
+
+                    javafx.scene.Parent root = loader.load();
+
+                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    stage.setScene(new javafx.scene.Scene(root));
+                    stage.show();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             } else {
-                JOptionPane.showMessageDialog(this, "Email ou senha incorretos.");
+                alert("Email ou senha incorretos.");
             }
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Erro no banco: " + ex.getMessage());
+            alert("Erro no banco: " + ex.getMessage());
+        }
+    }
+
+    @FXML
+    private void abrirCadastro(ActionEvent event){
+        try {
+            javafx.fxml.FXMLLoader loader =
+                    new javafx.fxml.FXMLLoader(getClass().getResource("/ui/tela-cadastro.fxml"));
+
+            javafx.scene.Parent root = loader.load();
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new javafx.scene.Scene(root));
+            stage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
