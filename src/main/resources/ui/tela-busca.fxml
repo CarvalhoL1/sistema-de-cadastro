@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" prefHeight="250" prefWidth="400" spacing="12" xmlns="http://javafx.com/javafx/17.0.12" fx:controller="ui.TelaBusca" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Button mnemonicParsing="false" text="Voltar" onAction="#voltarLogin"/>
+        <Label prefHeight="18.0" prefWidth="215.0" text="Digite o nome do usuario:" />
+        <TextField fx:id="buscaCampo" maxWidth="220.0" minWidth="-Infinity" prefHeight="8.0" prefWidth="200.0" promptText="digite o nome aqui" />
+        <Button mnemonicParsing="false" text="Buscar" onAction="#buscarUsuario"/>
+
+    </children>
+
+</VBox>

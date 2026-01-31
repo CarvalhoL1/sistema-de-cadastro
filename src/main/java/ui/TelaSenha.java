@@ -26,7 +26,7 @@ public class TelaSenha extends JFrame {
         JButton btnVoltar = new JButton("Voltar");
        
         btnVoltar.addActionListener(e -> {
-            new TelaPrincipal(u);
+            new TelaPrincipal();
             dispose();
         });
         JLabel lblsenha = new JLabel("Digite a nova senha ");

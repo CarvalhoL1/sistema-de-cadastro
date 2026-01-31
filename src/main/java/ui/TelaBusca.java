@@ -1,61 +1,46 @@
 package ui;
 
-import javax.swing.*;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import service.metodos;
 import service.metodos.Usuario;
 
-import java.awt.*;
 import java.sql.SQLException;
 
-public class TelaBusca extends JFrame{
-    private JTextField buscaCampo;
-    public TelaBusca(Usuario u){
-        setTitle("Buscar usuario");
-        setSize(600, 400);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+public class TelaBusca{
+    @FXML
+    private TextField buscaCampo;
 
-        JPanel painelPrincipal = new JPanel();
-        painelPrincipal.setLayout(new BoxLayout(painelPrincipal, BoxLayout.Y_AXIS));
-        painelPrincipal.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
-        painelPrincipal.add(Box.createVerticalStrut(15));
-        painelPrincipal.add(new JLabel("Olá, " + u.getNome() + " quem deseja buscar?"));
-        painelPrincipal.add(new JLabel("Email da pessoa:"));
-        buscaCampo = new JTextField();
-        buscaCampo.setMaximumSize(new Dimension(400, 40));
-        JButton btnBuscar = new JButton("Buscar");
-        
-        btnBuscar.addActionListener(e -> Buscar());
-        JButton btnVoltar = new JButton("Voltar");
-        
-        
-
-        painelPrincipal.add(buscaCampo);
-        painelPrincipal.add(Box.createVerticalStrut(15));
-        painelPrincipal.add(btnBuscar);
-        painelPrincipal.add(Box.createVerticalStrut(15));
-        painelPrincipal.add(btnVoltar);
-
-        setContentPane(painelPrincipal);
-
-        btnVoltar.addActionListener(e -> {
-            new TelaPrincipal(u);
-            dispose();
-        });
-        setVisible(true);
+    private void alert(String mensagem) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setContentText(mensagem);
+        alert.showAndWait();
     }
-    private void Buscar(){
+    @FXML
+    private void voltarLogin(){
+
+    }
+    @FXML
+    private void buscarUsuario(){
         String busca = buscaCampo.getText().trim();
         try{
             Usuario u = metodos.buscar_usuario(busca);
             if(u == null){
-                JOptionPane.showMessageDialog(this, "Usuario não encontrado!");
+                alert("Usuario não encontrado!");
             }
             else if (u.getFrase() == null) {
-                JOptionPane.showMessageDialog(this, "Usuario encontrado! esse usuario não possui frase");
+                alert("Usuario encontrado! esse usuario não possui frase");
             }
             else{
-                JOptionPane.showMessageDialog(this, "Usuario encontrado! sua frase é " + u.getFrase() + " e seu nome é " + u.getNome());
+                alert("Usuario encontrado! sua frase é " + u.getFrase() + " e seu nome é " + u.getNome());
             }
 
 
@@ -63,7 +48,7 @@ public class TelaBusca extends JFrame{
 
         }
         catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Erro no banco: " + ex.getMessage());
+            alert("Erro no banco: " + ex.getMessage());
         }
     }
 }

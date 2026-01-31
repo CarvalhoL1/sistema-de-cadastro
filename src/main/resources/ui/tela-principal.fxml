@@ -3,9 +3,15 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" prefHeight="250" prefWidth="400" spacing="12" fx:controller="ui.TelaPrincipal" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="CENTER" prefHeight="250" prefWidth="400" spacing="12" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.TelaPrincipal">
     <children>
-        <Button mnemonicParsing="false" text="Voltar para o login" onAction="#abrirLogin"/>
+        <Button mnemonicParsing="false" onAction="#abrirLogin" text="Voltar para o login" />
+        <Label fx:id="mensagem" prefHeight="18.0" prefWidth="221.0" text="" />
+      <Button mnemonicParsing="false" text="Buscar Usuario" />
+      <Button mnemonicParsing="false" text="Editar nome" />
+      <Button mnemonicParsing="false" text="Editar senha" />
+      <Button mnemonicParsing="false" text="Editar Frase" />
+      <Button mnemonicParsing="false" text="Apagar conta" />
     </children>
 
 </VBox>

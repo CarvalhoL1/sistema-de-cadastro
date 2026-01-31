@@ -26,7 +26,7 @@ public class TelaNome extends JFrame {
         topo.add(btnVoltar);
 
         btnVoltar.addActionListener(e -> {
-            new TelaPrincipal(u);
+            new TelaPrincipal();
             dispose();
         });
         JLabel lblnome = new JLabel("Digite o novo nome ");

@@ -25,7 +25,7 @@ public class TelaFrase extends JFrame {
         topo.add(btnVoltar);
 
         btnVoltar.addActionListener(e -> {
-            new TelaPrincipal(u);
+            new TelaPrincipal();
             dispose();
         });
 

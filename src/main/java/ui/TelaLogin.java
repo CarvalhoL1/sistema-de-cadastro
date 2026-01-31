@@ -45,13 +45,13 @@ public class TelaLogin  {
             if (u != null) {
                 alert("Bem-vindo, " + u.getNome() + "!");
                 try {
-                    javafx.fxml.FXMLLoader loader =
-                            new javafx.fxml.FXMLLoader(getClass().getResource("/ui/tela-principal.fxml"));
-
-                    javafx.scene.Parent root = loader.load();
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/tela-principal.fxml"));
+                    Parent root = loader.load();
+                    TelaPrincipal controller = loader.getController();
+                    controller.setUsuario(u);
 
                     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                    stage.setScene(new javafx.scene.Scene(root));
+                    stage.setScene(new Scene(root));
                     stage.show();
 
                 } catch (Exception e) {
