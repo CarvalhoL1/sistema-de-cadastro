@@ -11,7 +11,7 @@
       <Button mnemonicParsing="false" text="Editar nome" onAction="#nome"/>
       <Button mnemonicParsing="false" text="Editar senha" onAction="#senha"/>
       <Button mnemonicParsing="false" text="Editar Frase" onAction="#frase"/>
-      <Button mnemonicParsing="false" text="Apagar conta"/>
+      <Button mnemonicParsing="false" text="Apagar conta" onAction="#apagarConta"/>
     </children>
 
 </VBox>
