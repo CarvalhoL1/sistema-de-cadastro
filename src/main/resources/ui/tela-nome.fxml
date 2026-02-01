@@ -5,9 +5,9 @@
 
 <VBox alignment="CENTER" prefHeight="250" prefWidth="400" spacing="12" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.TelaNome">
     <children>
-        <Button mnemonicParsing="false" onAction="#voltarPainel" text="Voltar para o login" />
+        <Button mnemonicParsing="false" onAction="#voltarPainel" text="Voltar" />
         <Label prefHeight="18.0" prefWidth="219.0" text="Novo nome:" />
-        <PasswordField fx:id="nomeCampo" maxWidth="220.0" minWidth="-Infinity" prefHeight="8.0" prefWidth="200.0" promptText="digite o nome aqui" />
+        <TextField fx:id="nomeCampo" maxWidth="220.0" minWidth="-Infinity" prefHeight="8.0" prefWidth="200.0" promptText="digite o nome aqui" />
         <Button mnemonicParsing="false" onAction="#mudarNome" text="Atualizar" />
     </children>
 
