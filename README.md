@@ -1,101 +1,81 @@
-# Sistema de Cadastro e Login em Java
+# Sistema de Cadastro de Usuários (JavaFX + SQLite)
 
-Projeto desenvolvido para praticar **Java, JDBC, SQLite e segurança de autenticação**.  
-O sistema permite o cadastro, login, gerenciamento de conta e armazenamento de dados de usuários de forma segura.
-Este projeto possui uma interface gráfica desenvolvida com **Java Swing**, permitindo que o usuário interaja com o sistema de forma visual, sem precisar utilizar o terminal.
+##  Descrição
+
+Este é um sistema desktop de **cadastro e gerenciamento de usuários**, desenvolvido em **Java** com interface gráfica em **JavaFX**, persistência de dados em **SQLite** e gerenciamento de dependências via **Maven**.
+
+O sistema permite que usuários criem contas, façam login e gerenciem suas informações pessoais de forma simples e segura.
 
 ---
 
-## Funcionalidades
+##  Funcionalidades
 
--  Cadastro de usuário  
--  Login com verificação de senha segura (BCrypt)  
--  Deletar conta  
--  Adicionar/editar frase pessoal do usuário  
--  Banco de dados criado automaticamente (migration)
+-  Cadastro de novos usuários  
+-  Login com verificação de senha criptografada  
+-  Edição de nome  
+-  Atualização de frase pessoal  
+-  Busca de usuários pelo email  
+-  Alteração de senha  
+-  Exibição do nome do usuário logado no painel principal  
+-  Logout e controle de sessão
 
 ---
 
 ## Tecnologias Utilizadas
 
-- **Java 21**
-- **SQLite**
-- **JDBC**
-- **BCrypt (jBCrypt)** para hash de senhas
-- **Maven** para gerenciamento de dependência
-- **Swing** para a UI (user interface)
+| Tecnologia | Função |
+|------------|-------|
+| Java 21+ | Linguagem principal |
+| JavaFX | Interface gráfica |
+| SQLite | Banco de dados local |
+| jBCrypt | Criptografia de senhas |
+| Maven | Gerenciamento de dependências |
 
 ---
 
-## Segurança
-
-As senhas **não são armazenadas em texto puro**.
-
-O sistema utiliza **BCrypt**, que:
-
-- Gera hash seguro automaticamente  
-- Inclui salt embutido no hash  
-- Protege contra ataques de força bruta  
-
----
-
-## Banco de Dados
-
-O banco é criado automaticamente ao iniciar o programa.
-
-### Tabela: `usuarios`
-
-| Campo       | Tipo    | Descrição                    |
-|------------|---------|------------------------------|
-| id         | INTEGER | Chave primária               |
-| nome       | TEXT    | Nome do usuário              |
-| email      | TEXT    | Email único                  |
-| senha_hash | TEXT    | Hash da senha (BCrypt)       |
-| frase      | TEXT    | Frase pessoal (opcional)     |
-
----
 
 ## Como Executar o Projeto
 
-### 1️: Clonar o repositório
-### 2️: Compilar e rodar
+### Pré-requisitos
+- Java JDK 21 ou superior  
+- Maven instalado  
+
+### Rodar pelo terminal
 
 ```bash
-mvn compile exec:java -Dexec.mainClass=App
+mvn javafx:run
 ```
 
-Ou execute diretamente pelo botão **Run** no `App.java` (VS Code).
+---
+
+##  Banco de Dados
+
+O banco de dados é criado automaticamente na primeira execução através das migrações do sistema.
+
+### Estrutura da tabela principal
+
+| Campo | Tipo | Descrição |
+|------|------|-----------|
+| id | INTEGER | Identificador do usuário |
+| nome | TEXT | Nome do usuário |
+| email | TEXT | Email único |
+| senha_hash | TEXT | Senha criptografada |
+| frase | TEXT | Frase pessoal |
 
 ---
 
-## Fluxo do Sistema
+##  Segurança
 
-1. O banco e as tabelas são criados automaticamente  
-2. Usuário pode:
-   - Cadastrar conta  
-   - Fazer login  
-   - Deletar conta  
-   - Salvar/editar sua frase
-   - Buscar frases de outros usuarios
-    
-3. Senhas são validadas usando BCrypt  
+As senhas não são armazenadas em texto puro.  
+O sistema utiliza **hash seguro com jBCrypt**, garantindo maior proteção dos dados dos usuários.
 
 ---
 
-## Aprendizados com o Projeto
 
-Este projeto foi feito com foco em:
+## Projeto desenvolvido como prática de:
 
-- Conexão Java ↔ Banco de Dados  
-- Uso de PreparedStatement (prevenção de SQL Injection)  
-- Estruturação básica de autenticação  
-- Armazenamento seguro de senhas  
-- Organização de código em camadas simples  
-
----
-
-## Melhorias Futuras 
-
-- Estilização da interface gráfica
+- Programação Orientada a Objetos  
+- Desenvolvimento Desktop com JavaFX  
+- Integração com banco de dados  
 
 ---
