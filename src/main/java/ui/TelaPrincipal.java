@@ -2,12 +2,16 @@ package ui;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import service.metodos.Usuario;
 import service.metodos.Usuario;
 import java.awt.*;
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class TelaPrincipal {
@@ -30,7 +34,17 @@ public class TelaPrincipal {
         }
     }
     public void setUsuario(Usuario u) {
-        mensagem.setText("Bem-vindo, " + u.getNome() + "!");
+        mensagem.setText("Bem-vindo, " + u.getNome() + ", o que deseja fazer?");
     }
+    @FXML private void buscar(ActionEvent event) throws IOException { trocarTela("/ui/tela-busca.fxml", event); }
+    @FXML private void senha(ActionEvent event) throws IOException { trocarTela("/ui/tela-senha.fxml", event); }
+    @FXML private void nome(ActionEvent event) throws IOException { trocarTela("/ui/tela-nome.fxml", event); }
+    @FXML private void frase(ActionEvent event) throws IOException { trocarTela("/ui/tela-frase.fxml", event); }
 
+    private void trocarTela(String fxml, ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource(fxml));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
 }
